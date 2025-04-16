@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Natasha!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            line-height: 1.6;
+            text-align: center;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        #showcase {
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        #showcase h1 {
+            font-size: 60px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: titleAppear 3s ease forwards, glow 2s ease-in-out infinite alternate;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        @keyframes titleAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) translateY(-100px);
+            }
+            60% {
+                transform: scale(1.2) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #e60073, 0 0 20px #e60073;
+            }
+            to {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6;
+            }
+        }
+
+        .heart {
+            position: fixed;
+            top: -100px;
+            font-size: 24px;
+            transform: translateY(0);
+            animation: fall 15s linear infinite;
+            color: rgba(255, 255, 255, 0.7);
+            z-index: -1;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(calc(100vh + 100px));
+            }
+        }
+
+        #fromEddie {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            padding: 1em 2em;
+            margin: 40px auto;
+            position: relative;
+            font-size: 1.2em;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            border: 2px solid white;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: btnAppear 1s ease 3s forwards;
+            opacity: 0;
+            z-index: 5;
+        }
+
+        @keyframes btnAppear {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        #fromEddie:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
+
+        #fromEddie::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        #fromEddie:hover::before {
+            left: 100%;
+        }
+
+        .message {
+            font-size: 30px;
+            position: absolute;
+            width: 100%;
+            left: 0;
+            opacity: 0;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .message.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 50px;
+            perspective: 1000px;
+        }
+
+        .photo-placeholder {
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            color: white;
+            transform: rotateY(180deg);
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+
+        .photo-placeholder.flipped {
+            transform: rotateY(0deg);
+        }
+
+        .heart-container {
+            position: relative;
+            margin-top: 60px;
+            height: 200px;
+        }
+
+        .heart-shape {
+            display: inline-block;
+            position: relative;
+            width: 100px;
+            height: 90px;
+            animation: pulse 1.5s ease infinite;
+        }
+
+        .heart-shape:before,
+        .heart-shape:after {
+            position: absolute;
+            content: "";
+            left: 50px;
+            top: 0;
+            width: 50px;
+            height: 80px;
+            background: #ff3a7f;
+            border-radius: 50px 50px 0 0;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart-shape:after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(0.8); }
+        }
+
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px white;
+            animation: firework-animation 2s ease;
+            opacity: 0;
+        }
+
+        @keyframes firework-animation {
+            0% {
+                transform: translate(0, 0);
+                width: 5px;
+                height: 5px;
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty));
+                width: 0;
+                height: 0;
+                opacity: 0;
+            }
+        }
+
+        #main-box {
+            margin-top: 50px;
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 15px;
+            opacity: 0;
+            animation: fadeIn 1s ease 7s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .small-box {
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .small-box:hover {
+            transform: scale(1.2) rotate(45deg);
+            background-color: #ff3a7f;
+            box-shadow: 0 0 15px #ff3a7f;
+        }
+
+        .vanish {
+            animation: vanish 4s infinite alternate;
+        }
+
+        @keyframes vanish {
+            0%, 100% { opacity: 1; background-color: white; }
+            50% { opacity: 0; background-color: #ff3a7f; }
+        }
+
+        .music-visualizer {
+            height: 60px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            gap: 5px;
+            margin: 40px 0;
+        }
+
+        .bar {
+            background-color: white;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+            transition: height 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+            #showcase h1 {
+                font-size: 40px;
+            }
+
+            .message {
+                font-size: 18px;
+            }
+
+            .gallery {
+                gap: 10px;
+            }
+
+            .photo-placeholder {
+                width: 120px;
+                height: 120px;
+                font-size: 24px;
+            }
+
+            .heart-shape {
+                width: 70px;
+                height: 60px;
+            }
+
+            .heart-shape:before,
+            .heart-shape:after {
+                left: 35px;
+                width: 35px;
+                height: 55px;
+            }
+
+            #main-box {
+                gap: 8px;
+            }
+
+            .small-box {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #showcase h1 {
+                font-size: 30px;
+            }
+
+            .photo-placeholder {
+                width: 100px;
+                height: 100px;
+                font-size: 20px;
+            }
+
+            .small-box {
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        .countdown {
+            font-size: 30px;
+            margin: 30px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease 5s forwards;
+        }
+
+        .special-message {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            font-size: 18px;
+            line-height: 1.8;
+            transform: translateY(50px);
+            opacity: 0;
+            animation: slideUp 1s ease 4s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Audio -->
+        <audio id="bgMusic" autoplay loop>
+            <source src="https://assets.codepen.io/1949311/happy-birthday-song.mp3" type="audio/mpeg">
+        </audio>
+        
+        <button id="playButton" style="position: fixed; bottom: 20px; right: 20px; z-index: 100; padding: 10px; background: rgba(255,255,255,0.3); border: none; border-radius: 50%; cursor: pointer;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
+                <path d="M8 5v14l11-7z"/>
+            </svg>
+        </button>
+
+        <div id="showcase">
+            <h1>Happy Birthday Natasha!</h1>
+        </div>
+
+        <div class="music-visualizer">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+
+        <div id="messageContainer" style="position: relative; height: 100px;">
+            <h2 class="message" data-index="0">HAPPY BIRTHDAY TO YOU, NANA!</h2>
+            <h2 class="message" data-index="1">HOPE YOU WILL HAVE A PROSPEROUS LIFE.</h2>
+            <h2 class="message" data-index="2">YOU ARE A VERY COOL SPECIAL PERSON.</h2>
+            <h2 class="message" data-index="3">SO I HAVE PREPARED THIS GIFT FOR YOU.</h2>
+            <h2 class="message" data-index="4">AND THE COOL THING IS THAT-</h2>
+            <h2 class="message" data-index="5">IT WILL REMAIN FOREVER ON THE WEB,</h2>
+            <h2 class="message" data-index="6">JUST LIKE YOU WILL REMAIN FOREVER AMAZING ♥</h2>
+        </div>
+
+        <div class="countdown">
+            <p>Celebrating your special day</p>
+            <div id="timer">00:00:00</div>
+        </div>
+
+        <div class="special-message">
+            <p>Hey, just wanted to wish you the happiest birthday today. You truly deserve all the good things life has to offer. You’re such a kind, beautiful soul, and I hope this year brings you nothing but smiles, growth, and everything you’ve been hoping for. You light up the space around you in a way that’s hard to put into words. I hope today reminds you of just how loved and appreciated you are. Never stop being you..genuine, thoughtful, and effortlessly amazing. Wishing you joy not just today, but every day moving forward.</p>
+            <p>With love,</p>
+            <p>Eddie♥</p>
+        </div>
+
+        <a href="#" id="fromEddie">From Eddie ❤️</a>
+
+        <div class="heart-container">
+            <div class="heart-shape"></div>
+        </div>
+
+        <h3 style="margin-top: 30px; animation: fadeIn 1s ease 6s forwards; opacity: 0;"></h3>
+        <div class="gallery">
+            <div class="photo-placeholder">❤️</div>
+            <div class="photo-placeholder">❤️</div>
+            <div class="photo-placeholder">❤️</div>
+            <div class="photo-placeholder">❤️</div>
+        </div>
+
+        <div id="main-box">
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box vanish"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+            <div class="small-box"></div>
+        </div>
+    </div>
+
+    <script>
+        // Play background music
+        const audio = document.getElementById('bgMusic');
+        const playButton = document.getElementById('playButton');
+        
+        playButton.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                playButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+            } else {
+                audio.pause();
+                playButton.innerHTML = '<svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>';
+            }
+        });
+
+        // Messages animation
+        let currentMessageIndex = 0;
+        const messages = document.querySelectorAll('.message');
+        const messageContainer = document.getElementById('messageContainer');
+
+        function showNextMessage() {
+            // Hide all messages
+            messages.forEach(msg => msg.classList.remove('visible'));
+            
+            // Show current message
+            if (currentMessageIndex < messages.length) {
+                messages[currentMessageIndex].classList.add('visible');
+                currentMessageIndex++;
+                setTimeout(showNextMessage, 5000);
+            } else {
+                // When all messages have been shown, make container shorter
+                messageContainer.style.height = '0';
+                setTimeout(() => {
+                    messageContainer.style.display = 'none';
+                }, 1000);
+            }
+        }
+
+        // Start message animation after 1 second
+        setTimeout(showNextMessage, 1000);
+
+        // Create falling hearts
+        function createHearts() {
+            const container = document.querySelector('.container');
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+                heart.style.animationDuration = (Math.random() * 10 + 5) + 's';
+                heart.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(heart);
+            }
+        }
+
+        // Create fireworks effect
+        function createFirework(x, y) {
+            const container = document.querySelector('.container');
+            const colors = ['#ff0', '#f0f', '#0ff', '#f00', '#0f0', '#00f'];
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('firework');
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Random direction
+                const angle = Math.random() * Math.PI * 2;
+                const distance = Math.random() * 100 + 50;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                particle.style.setProperty('--tx', tx + 'px');
+                particle.style.setProperty('--ty', ty + 'px');
+                
+                container.appendChild(particle);
+                
+                // Remove particle after animation completes
+                setTimeout(() => {
+                    particle.remove();
+                }, 2000);
+            }
+        }
+
+        // Click event for photo placeholders
+        const photos = document.querySelectorAll('.photo-placeholder');
+        photos.forEach((photo, index) => {
+            photo.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+                const rect = this.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                createFirework(x, y);
+            });
+            
+            // Set different flip delay for each photo
+            setTimeout(() => {
+                photo.classList.add('flipped');
+                setTimeout(() => {
+                    photo.classList.remove('flipped');
+                }, 1000);
+            }, 8000 + index * 500);
+        });
+
+        // Music visualizer
+        function updateVisualizer() {
+            const bars = document.querySelectorAll('.bar');
+            
+            bars.forEach(bar => {
+                const height = Math.floor(Math.random() * 50) + 10;
+                bar.style.height = height + 'px';
+            });
+            
+            requestAnimationFrame(updateVisualizer);
+        }
+
+        // Create random effects when clicking on small boxes
+        const smallBoxes = document.querySelectorAll('.small-box');
+        smallBoxes.forEach(box => {
+            box.addEventListener('mouseover', function() {
+                const colors = ['#ff3a7f', '#00ffcc', '#ffaa00', '#aa00ff', '#00aaff'];
+                this.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                this.style.boxShadow = `0 0 15px ${this.style.backgroundColor}`;
+            });
+            
+            box.addEventListener('mouseout', function() {
+                setTimeout(() => {
+                    this.style.backgroundColor = '';
+                    this.style.boxShadow = '';
+                }, 500);
+            });
+            
+            box.addEventListener('click', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                createFirework(x, y);
+            });
+        });
+
+        // Countdown timer
+        function updateTimer() {
+            const birthday = new Date(); // Today
+            const now = new Date();
+            
+            let diff = now - birthday;
+            
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            diff -= hours * (1000 * 60 * 60);
+            
+            const mins = Math.floor(diff / (1000 * 60));
+            diff -= mins * (1000 * 60);
+            
+            const secs = Math.floor(diff / 1000);
+            
+            document.getElementById('timer').textContent = 
+                `${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            
+            setTimeout(updateTimer, 1000);
+        }
+
+        // Initialize everything when page loads
+        window.addEventListener('load', function() {
+            createHearts();
+            updateVisualizer();
+            updateTimer();
+            
+            // Create initial fireworks
+            setTimeout(() => {
+                createFirework(window.innerWidth / 3, window.innerHeight / 3);
+                createFirework(window.innerWidth * 2/3, window.innerHeight / 3);
+            }, 3000);
+            
+            // Try to play music automatically (may be blocked by browser)
+            audio.play().catch(e => {
+                console.log('Auto-play was prevented. Please click the play button.');
+            });
+        });
+
+        // Add special effects when clicking anywhere on the page
+        document.addEventListener('click', function(e) {
+            if (Math.random() > 0.7) {
+                createFirework(e.clientX, e.clientY);
+            }
+        });
+        
+        // Easter egg: Konami code
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+        
+        document.addEventListener('keydown', function(e) {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                
+                if (konamiIndex === konamiCode.length) {
+                    // Activate super fireworks
+                    for (let i = 0; i < 10; i++) {
+                        setTimeout(() => {
+                            createFirework(
+                                Math.random() * window.innerWidth, 
+                                Math.random() * window.innerHeight
+                            );
+                        }, i * 300);
+                    }
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+    </script>
+</body>
+</html>
